@@ -13,6 +13,38 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="icon" type="image/png" href="./static/Tantronics Logo.png">
   <link rel="stylesheet" href="./static/style.css">
+
+  <style>
+    /* hero video background + overlay */
+    .hero { position: relative; overflow: hidden; }
+    .hero video.bg-video {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 0;
+      pointer-events: none;
+      filter: brightness(0.6) contrast(1);
+    }
+    .hero .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(rgba(0,0,0,0.25), rgba(0,0,0,0.35));
+      z-index: 1;
+      pointer-events: none;
+    }
+    .hero .hero-inner { position: relative; z-index: 2; }
+
+    /* Respect reduced motion preference */
+    @media (prefers-reduced-motion: reduce) {
+      .hero video.bg-video { display: none; }
+    }
+    /* Hide video on small screens to save bandwidth */
+    @media (max-width: 600px) {
+      .hero video.bg-video { display: none; }
+    }
+  </style>
 </head>
 <body>
   <!-- Header -->
@@ -48,6 +80,14 @@
 
   <!-- Hero -->
   <section class="hero" id="home" role="banner" aria-label="Hero">
+    <!-- Background video (decorative) -->
+    <video class="bg-video" autoplay muted loop playsinline preload="metadata" aria-hidden="true" poster="./static/hero-poster.jpg">
+      <source src="./static/webt.mp4" type="video/mp4">
+      <!-- Fallback text (hidden from assistive tech via aria-hidden) -->
+      Your browser does not support the video element.
+    </video>
+    <!-- subtle overlay between video and content -->
+    <div class="hero-overlay" aria-hidden="true"></div>
     <div class="hero-inner">
       <span class="eyebrow">Electronics • Automation • Embedded Systems • Power Electronics • Medicare</span>
       <h1>Industrial Automation Solutions</h1>
@@ -408,10 +448,3 @@ LIGHTS</h3>
   </script>
 </body>
 </html>
-
-
-
-
-
-
-
